@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/constants.dart';
+import 'package:note_app/features/search/presentation/manager/searchusers/searchusers_cubit.dart';
 
 class SearchTextfield extends StatefulWidget {
   const SearchTextfield({super.key, required this.onSubmited});
@@ -31,9 +33,8 @@ class _SearchTextfieldState extends State<SearchTextfield> {
           child: IconButton(
             onPressed: () {
               controller.clear();
-              // BlocProvider.of<SearchusersCubit>(context).filterNames(
-
-              // );
+              BlocProvider.of<SearchusersCubit>(context).filterNames(
+    );
             },
             icon: const Icon(
               Icons.clear_all_rounded,

@@ -9,6 +9,7 @@ import 'package:note_app/features/home/data/models/Note_model.dart';
 import 'package:note_app/features/home/presentation/views/editNotes_page.dart';
 import 'package:note_app/features/home/presentation/views/home_view.dart';
 import 'package:note_app/core/utils/simple_bloc_observer.dart';
+import 'package:note_app/features/search/presentation/manager/searchusers/searchusers_cubit.dart';
 import 'package:note_app/features/search/presentation/views/search_view.dart';
 
 void main() async {
@@ -28,26 +29,38 @@ class NoteApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShowNoteCubit(),
-      child: MaterialApp(
-        title: 'Note App',
-        debugShowCheckedModeBanner: false,
-        useInheritedMediaQuery: true,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          useMaterial3: true,
-          fontFamily: 'Poppins',
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ShowNoteCubit(),),
+        BlocProvider(
+           create: (context) => SearchusersCubit(
+       
+      )..filterNames(),
+          
         ),
-        initialRoute: HomePage.id,
-        routes: {
-          HomePage.id: (context) => const HomePage(),
-          EditNotesPage.id: (context) => const EditNotesPage(),
-          SearchView.id: (context) => const SearchView(),
-        },
-      ),
+
+      ],
+          
+          child: MaterialApp(
+            title: 'Note App',
+            debugShowCheckedModeBanner: false,
+            useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
+            theme: ThemeData(
+              brightness: Brightness.dark,
+              useMaterial3: true,
+              fontFamily: 'Poppins',
+            ),
+            initialRoute: HomePage.id,
+            routes: {
+              HomePage.id: (context) => const HomePage(),
+              EditNotesPage.id: (context) => const EditNotesPage(),
+              SearchView.id: (context) => const SearchView(),
+            },
+          ),
+        
     );
   }
 }

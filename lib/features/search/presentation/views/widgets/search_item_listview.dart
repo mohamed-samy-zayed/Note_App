@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/features/search/presentation/views/widgets/search_item.dart';
+import 'package:note_app/features/home/data/models/Note_model.dart';
+import 'package:note_app/features/home/presentation/views/widgets/custom_containerTips.dart';
 
 class SearchItemListview extends StatelessWidget {
-  const SearchItemListview({super.key, });
-//  final  List<BookModel> names ;
+  const SearchItemListview({super.key, required this.names, });
+ final  List<NoteModel> names ;
   @override
   Widget build(BuildContext context) {
    
     return SliverList.builder(
 
-      itemCount: 5,
+      itemCount: names.length,
       itemBuilder: (context, index) {
-        return SearchItem(
-        //  bookModel: names[index],
-        );
+        return CustomContainerTips(note: names[index]);
+        
+        
+         
       },
     );
   }

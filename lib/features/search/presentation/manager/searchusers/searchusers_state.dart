@@ -1,36 +1,28 @@
 part of 'searchusers_cubit.dart';
 
 
-List<String> namesUser = [
-    'Shane Haq',
-    'Gualtiero Cea',
-    'Maria Zarco',
-    'Rosita Marcos',
-   'Shane Haq',
-    'Gualtiero Cea',
-    'Maria Zarco',
-    'Rosita Marcos',
-    'Shane Haq',
-    'Gualtiero Cea',
-    'Maria Zarco',
-    'Rosita Marcos',
-  ];
+
+
 
 @immutable
 abstract class SearchusersState {}
 
 class SearchusersInitial extends SearchusersState {
-  final List<String> names;
+  final List<NoteModel> names;
+  
 
   SearchusersInitial({required this.names});
 }
 class SearchusersFilter extends SearchusersState {
-  final List<String> filterNames;
+  final List<NoteModel> filterNames;
+  final String q;
 
-  SearchusersFilter({required this.filterNames});
+  SearchusersFilter({ required this.q,required this.filterNames});
 }
 class SearchusersFailure extends SearchusersState {
-  
+  final String q;
+
+ SearchusersFailure( { required this.q});
   
 }
 class SearchusersLoading extends SearchusersState {
