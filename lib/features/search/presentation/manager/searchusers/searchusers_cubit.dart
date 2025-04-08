@@ -8,20 +8,20 @@ part 'searchusers_state.dart';
 
 class SearchusersCubit extends Cubit<SearchusersState> {
   SearchusersCubit() : super(SearchusersLoading());
-  
+  List<NoteModel>?  notes ;
 
   Future<void> filterNames({ String? name}) async {
     
 var noteBox = Hive.box<NoteModel>(kNotesBox);
 
- List<NoteModel>  notes = noteBox.values.toList() ?? [];
+  notes = noteBox.values.toList() ;
 
     if ( name == null ||name.isEmpty) {
-      emit(SearchusersInitial(names: notes));
+      emit(SearchusersInitial(names: notes!));
     } else {
       emit(SearchusersLoading());
       final filteredList =
-          notes
+          notes!
               .where(
                 (filterName) => filterName.title.toString().toLowerCase().contains(
                   name.toLowerCase(),

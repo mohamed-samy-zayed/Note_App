@@ -6,10 +6,14 @@ import 'package:note_app/features/home/data/models/Note_model.dart';
 import 'package:note_app/features/home/presentation/views/editNotes_page.dart';
 
 class CustomContainerTips extends StatelessWidget {
-  const CustomContainerTips({super.key, required this.note});
+  const CustomContainerTips({
+    super.key,
+    required this.note,
+    required this.isSearch,
+  });
 
   final NoteModel note;
-
+  final bool isSearch;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,7 +37,7 @@ class CustomContainerTips extends StatelessWidget {
                   title: Text(
                     note.title,
                     style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.w800,
                       color: Colors.black,
                     ),
@@ -43,29 +47,32 @@ class CustomContainerTips extends StatelessWidget {
                     child: Text(
                       note.subTitle,
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: Colors.black54,
-                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  trailing: IconButton(
-                    iconSize: 26,
-                    onPressed: () {
-                      note.delete();
-                      debugPrint('${note.title} is deleted');
-                      BlocProvider.of<ShowNoteCubit>(context).showNote();
-                    },
-                    icon: const Icon(
-                      FontAwesomeIcons.trash,
-                      color: Colors.black,
-                    ),
-                  ),
+                  trailing:
+                      isSearch
+                          ? SizedBox()
+                          : IconButton(
+                            onPressed: () {
+                              note.delete();
+                              debugPrint('${note.title} is deleted');
+                              BlocProvider.of<ShowNoteCubit>(
+                                context,
+                              ).showNote();
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.trash,
+                              color: Colors.black,
+                            ),
+                          ),
                 ),
                 Text(
                   note.date,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: Colors.black54,
                     fontWeight: FontWeight.w700,
                   ),

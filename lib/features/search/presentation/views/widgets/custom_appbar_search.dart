@@ -5,10 +5,10 @@ import 'package:note_app/features/search/presentation/views/widgets/search_textF
 
 class CustomAppBarSearch extends StatelessWidget {
  const  CustomAppBarSearch({
-    super.key, required this.onSubmited,
+    super.key, required this.onChanged,
   });
   
-  final dynamic Function(String) onSubmited;
+  final dynamic Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class CustomAppBarSearch extends StatelessWidget {
           ),
           Expanded(
             child: SearchTextfield(
-              onSubmited: onSubmited,
+              onChanged: onChanged,
             ),
           ),
         ],

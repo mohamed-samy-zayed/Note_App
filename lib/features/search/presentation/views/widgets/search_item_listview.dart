@@ -12,7 +12,9 @@ class SearchItemListview extends StatelessWidget {
 
       itemCount: names.length,
       itemBuilder: (context, index) {
-        return CustomContainerTips(note: names[index]);
+        return CustomContainerTips(
+          isSearch: true,
+          note: names[index]);
         
         
          

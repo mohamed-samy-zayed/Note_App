@@ -19,6 +19,7 @@ class CustomListview extends StatelessWidget {
             itemCount: notes.length,
             itemBuilder: (context, index) {
               return  CustomContainerTips(
+                isSearch: false,
                 note: notes[index],
               );
             },

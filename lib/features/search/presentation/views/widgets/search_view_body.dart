@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/features/home/data/models/Note_model.dart';
+import 'package:note_app/features/home/presentation/manager/show_note_cubit/show_note_cubit.dart';
 import 'package:note_app/features/search/presentation/manager/searchusers/searchusers_cubit.dart';
 import 'package:note_app/features/search/presentation/views/widgets/custom_appbar_search.dart';
 import 'package:note_app/features/search/presentation/views/widgets/search_item_listview.dart';
@@ -9,6 +11,7 @@ class SearchViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return CustomScrollView(
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
@@ -25,7 +28,7 @@ class SearchViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomAppBarSearch(
-                  onSubmited: (p0) {
+                  onChanged: (p0) {
                     BlocProvider.of<SearchusersCubit>(
                       context,
                     ).filterNames(name: p0);
@@ -36,7 +39,7 @@ class SearchViewBody extends StatelessWidget {
                     if (state is SearchusersFilter) {
                       return Padding(
                         padding: const EdgeInsets.only(
-                            left: 16, top: 20, bottom: 20),
+                            left: 14, top: 20, bottom: 20),
                         child: Text(
                           'Result of " ${state.q} "',
                           style: TextStyle(
@@ -45,7 +48,21 @@ class SearchViewBody extends StatelessWidget {
                           ),
                         ),
                       );
-                    } else {
+                    } else if(state is SearchusersInitial ){
+
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 20, bottom: 20),
+                        child: Text(
+                          'All Notes',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      );
+
+                    } else{
                       return const SizedBox(
                         height: 40,
                       );
@@ -79,7 +96,7 @@ class SearchViewBody extends StatelessWidget {
             } else if (state is SearchusersFailure) {
               return SliverToBoxAdapter(
                   child: Text(
-                'No Results of " ${state.q}! "',
+                'No Results of " ${state.q} "',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500
@@ -87,7 +104,13 @@ class SearchViewBody extends StatelessWidget {
                 textAlign: TextAlign.center,
               ));
             } else {
-              return const SliverToBoxAdapter(child: SizedBox());
+              List<NoteModel> notes = BlocProvider.of<ShowNoteCubit>(context).note??[];
+             return SliverPadding(
+                padding: const EdgeInsets.only(left: 16, bottom: 60, right: 16),
+                sliver: SearchItemListview(
+                  names: notes,
+                ),
+              );
             }
           },
         )
